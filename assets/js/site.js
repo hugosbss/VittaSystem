@@ -9,9 +9,16 @@
         toggle.addEventListener('click', function () {
             links.classList.toggle('open');
         });
+
+        // Fechar menu ao clicar em um link (mobile)
+        links.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                links.classList.remove('open');
+            });
+        });
     }
 
-    // --- Contact form (100% estatico, via Formspree) ---
+    // --- Contact form (100% estático, via Formspree) ---
     // Endpoint do Formspree. Crie um form gratuito em https://formspree.io
     // e cole o endpoint (ex: https://formspree.io/f/abcXYZ12) abaixo.
     var FORMSPREE_ENDPOINT = 'SEU_ENDPOINT_FORMPREE_AQUI';
@@ -32,7 +39,7 @@
                 feedback.querySelector('b').textContent = 'Recebemos o seu contato';
                 feedback.querySelector('p').textContent = 'Obrigado pelo interesse. Aguarde o nosso retorno em breve.';
             } else {
-                feedback.querySelector('b').textContent = 'Nao foi possivel enviar';
+                feedback.querySelector('b').textContent = 'Não foi possível enviar';
                 feedback.querySelector('p').textContent = 'Ocorreu um erro ao enviar. Tente novamente em instantes.';
             }
         }
@@ -49,7 +56,7 @@
             if (FORMSPREE_ENDPOINT === 'SEU_ENDPOINT_FORMPREE_AQUI') {
                 if (feedback) {
                     showFeedback('error');
-                    feedback.querySelector('p').textContent = 'Formulario ainda nao configurado no Formspree.';
+                    feedback.querySelector('p').textContent = 'Formulário ainda não configurado no Formspree.';
                 }
                 return;
             }
@@ -57,9 +64,9 @@
             if (feedback) hideFeedback();
 
             var submitBtn = form.querySelector('button[type="submit"]');
-            var submitText = submitBtn.textContent;
+            var submitHTML = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Enviando...';
+            submitBtn.innerHTML = '<svg class="spinner" viewBox="0 0 24 24" width="18" height="18" style="margin-right:8px;vertical-align:middle"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 60" stroke-linecap="round"/></svg> Enviando...';
 
             var body = new URLSearchParams(new FormData(form));
 
@@ -78,7 +85,7 @@
                         var msg = data && data.errors && data.errors.length
                             ? data.errors[0].message
                             : null;
-                        throw new Error(msg || 'O servico de envio falhou.');
+                        throw new Error(msg || 'O serviço de envio falhou.');
                     }
                     return data;
                 });
@@ -92,7 +99,7 @@
             })
             .finally(function () {
                 submitBtn.disabled = false;
-                submitBtn.textContent = submitText;
+                submitBtn.innerHTML = submitHTML;
             });
         });
     }
