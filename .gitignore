@@ -1,0 +1,12 @@
+# Favicon generator (ferramenta local, não para deploy)
+favicon-generator.html
+assets/vittasys-favicons/
+
+# macOS
+.DS_Store
+assets/.DS_Store
+assets/js/.DS_Store
+
+# Dependências/ferramentas locais
+node_modules/
+*.log
